@@ -1,23 +1,19 @@
+const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const colors = require("colors");
-const { connectToServer } = require("./utils/dbConnections");
 const port = process.env.PORT || 5000;
 const app = require("./app");
 const errorHandler = require("./middlewars/errorHandler");
-const TourRoute=require('./routes/v1/tours.routes')
+const TourRoute=require('./routes/v1/tours.routes');
+const connectToDatabase = require("./utils/dbConnections");
 
-connectToServer((err) => {
-  if (!err) {
-    app.listen(port, () => {
-      console.log(`App is running on port ${port}`.yellow.bold);
-    });
-  } else {
-    console.log(err)
-  }
+connectToDatabase()
+
+app.listen(port, () => {
+  console.log(`App is running on port ${port}`.yellow.bold);
 });
-
 // route  codding here 
-app.use("/tours", TourRoute)
+app.use("/api/v1/", TourRoute)
 
 
 

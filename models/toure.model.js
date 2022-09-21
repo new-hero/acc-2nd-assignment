@@ -6,10 +6,11 @@ const toursSchema = mongoose.Schema({
         required: [true, "Name must be need"],
         trim: true,
         minLength: [3, "Please give minimum 3 charecter"],
-        maxLength: [100, "Name is too large"]
+        maxLength: [100, "Name is too large"],
+        unique:[true, "Name alrady exists"]
     },
     image: {
-        type: URL,
+        type: String,
         required: true
     },
     description: {
@@ -32,12 +33,12 @@ toursSchema.pre('save', function (next) {
     console.log('befor saving data')
     next();
 })
-toursSchema.post('save', function (doc, next) {
-    console.log('after saving data')
-    next();
-})
+// toursSchema.post('save', function (doc, next) {
+//     console.log('after saving data')
+//     next();
+// })
 
-const Tour = mongoose.model("Tour", toursSchema)
+const TourModel = mongoose.model('TourModel', toursSchema)
 
 
-module.exports = Tour
+module.exports =TourModel ;
