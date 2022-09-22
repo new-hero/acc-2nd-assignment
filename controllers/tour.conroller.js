@@ -16,7 +16,7 @@ module.exports.getAllTours = async (req, res, next) => {
             const filterBy = req.query.fields.split(",").join(" ");
             customFilter.filterBy = filterBy;
         }
-        if (req.query.page) {
+        if (req.query.page || !req.query.page) {
             const { page = 1, limit = 5 } = req.query;
             const skip = (+page - 1) * +limit;
             customFilter.skipValue = skip;
